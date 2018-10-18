@@ -8,8 +8,10 @@ public class Tienda {
     private final static String venta = "venta";
     private final static String indice = "indice";
     private final static String comprasTotales = "comprastotales";
+    private final static String ventasTotales = "ventastotales";
     private int gastoTotalAnimalesComprados;
     private int ingresosTotalesAnimalesVendidos;
+    private int contador = 0;
 
     public Tienda() {
         teclado = new Scanner(System.in);
@@ -20,7 +22,7 @@ public class Tienda {
         String realizar;
         int finalizar = 1;
         while (finalizar != 0) {
-            System.out.println("Escribe la operacion que quieres realizar, compra, venta, comprastotales o indice");
+            System.out.println("Escribe la operacion que quieres realizar, compra, venta, comprastotales, ventastotales o indice");
             realizar = teclado.next();
             if (realizar.equals(compra)) {
                 compraAnimal();
@@ -34,6 +36,9 @@ public class Tienda {
             if (realizar.equals(comprasTotales)) {
                 totalComprado();
             }
+            if (realizar.equals(ventasTotales)) {
+                totalVendido();
+            }
             System.out.println("Si quieres hacer otra operacion pulsa 1 si quieres salir pulsa 0");
             finalizar = teclado.nextInt();
         }
@@ -41,9 +46,10 @@ public class Tienda {
     }
 
     public void compraAnimal() {
-        int contador = 0;
+        System.out.println(animales.length);
         animales[contador] = new Animal();
         animales[contador].cargaDelAnimal();
+        gastoTotalAnimalesComprados += animales[contador].dinero();
         contador++;
         if (contador == animales.length) {
             animales = Arrays.copyOf(animales, animales.length *2);
@@ -51,22 +57,26 @@ public class Tienda {
     }
 
     public void ventaAnimal() {
-
+        ingresosTotalesAnimalesVendidos += animales[contador].dinero();
+        animales[contador] = null;
+        contador--;
     }
 
     public void totalComprado() {
-        for (int f = 0; f < animales.length; f++) {
-            gastoTotalAnimalesComprados = animales[f].dinero();
 
-        }
         System.out.println(gastoTotalAnimalesComprados);
+    }
+
+    public void totalVendido() {
+        System.out.println(ingresosTotalesAnimalesVendidos);
     }
 
     public void indiceDeLosAnimales() {
         System.out.println(animales.length);
-        System.out.println(animales[0].toString());
-        for (int f = 0; f < animales.length; f++) {
 
+        for (int f = 0; f < animales.length; f++) {
+            System.out.println(animales[f].toString());
+            System.out.println();
         }
     }
 
