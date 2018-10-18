@@ -48,7 +48,7 @@ public class Tienda {
     public void compraAnimal() {
         System.out.println(animales.length);
         if (contador == animales.length) {
-            animales = Arrays.copyOf(animales, animales.length +1);
+            animales = Arrays.copyOf(animales, animales.length + 1);
         }
         System.out.println(animales.length);
         animales[contador] = new Animal();
@@ -68,7 +68,12 @@ public class Tienda {
             System.out.println("nombre del animal a comparar: " + animales[f].getNombre());
             if (animalAVender.equals(animales[f].getNombre())) {
                 ingresosTotalesAnimalesVendidos += animales[f].dinero();
-                animales[f] = new Animal();
+                for (int c = f; c < animales.length - 1; c++) {
+
+                    animales[c] = animales[c + 1];
+
+                }
+                animales = Arrays.copyOf(animales, animales.length - 1);
                 operacionARealizar();
             }
         }
