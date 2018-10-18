@@ -15,7 +15,7 @@ public class Tienda {
 
     public Tienda() {
         teclado = new Scanner(System.in);
-        animales = new Animal[2];
+        animales = new Animal[0];
     }
 
     public void operacionARealizar() {
@@ -47,23 +47,35 @@ public class Tienda {
 
     public void compraAnimal() {
         System.out.println(animales.length);
+        if (contador == animales.length) {
+            animales = Arrays.copyOf(animales, animales.length +1);
+        }
+        System.out.println(animales.length);
         animales[contador] = new Animal();
         animales[contador].cargaDelAnimal();
         gastoTotalAnimalesComprados += animales[contador].dinero();
         contador++;
-        if (contador == animales.length) {
-            animales = Arrays.copyOf(animales, animales.length *2);
-        }
+
     }
 
     public void ventaAnimal() {
-        ingresosTotalesAnimalesVendidos += animales[contador].dinero();
-        animales[contador] = null;
-        contador--;
+        String animalAVender = "";
+        System.out.println("Introduce el nombre del animal a vender");
+        animalAVender = teclado.next();
+
+        for (int f = 0; f < animales.length; f++) {
+            System.out.println("nombre del animal a vender: " + animalAVender);
+            System.out.println("nombre del animal a comparar: " + animales[f].getNombre());
+            if (animalAVender.equals(animales[f].getNombre())) {
+                ingresosTotalesAnimalesVendidos += animales[f].dinero();
+                animales[f] = new Animal();
+                operacionARealizar();
+            }
+        }
+
     }
 
     public void totalComprado() {
-
         System.out.println(gastoTotalAnimalesComprados);
     }
 
@@ -90,4 +102,5 @@ public class Tienda {
  * venta
  * totales compra y venta
  * Se debe implementar un método que imprima los datos de cada animal que se instancie
- * en la base de datos de la veterinaria.**/
+ * en la base de datos de la veterinaria.
+ **/

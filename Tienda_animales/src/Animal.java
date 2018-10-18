@@ -31,7 +31,11 @@ public class Animal {
         precio = teclado.nextInt();
     }
 
+    
 
+    public String getNombre() {
+        return nombre;
+    }
 
     public int dinero() {
         return precio;
