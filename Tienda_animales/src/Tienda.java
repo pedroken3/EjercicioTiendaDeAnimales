@@ -74,7 +74,8 @@ public class Tienda {
 
                 }
                 animales = Arrays.copyOf(animales, animales.length - 1);
-                operacionARealizar();
+                break;
+                //operacionARealizar();
             }
         }
 
